@@ -6,6 +6,11 @@ const apiRoutes = require('./routes')
 
 const app = express();
 
+var corsOptions = {
+	origin: "http://localhost:3000/"
+		};
+app.use (cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
