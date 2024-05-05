@@ -14,6 +14,18 @@ class TransactionRepository extends CrudRepository {
         return response;
     }
 
+    async getTransactions(data) {
+        data.phoneNumber = Number(data.phoneNumber);
+        
+        const response = await transactions.findAll(
+            {
+            where: {
+                userPhoneNumber: data.phoneNumber
+            }
+        });
+        return response;
+    }
+
 }
 
 module.exports = TransactionRepository;

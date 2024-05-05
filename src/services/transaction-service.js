@@ -35,7 +35,7 @@ async function addTransaction (data){
 async function getTransactions(data){
     try {
         console.log("in voucher-service", data);
-        const response = await transactionRepo.getUser(data);
+        const response = await transactionRepo.getTransactions(data);
         return response;
     } catch (error) {
         console.log(error);
@@ -44,4 +44,4 @@ async function getTransactions(data){
 }
 
 
-module.exports = { addTransaction };
+module.exports = { addTransaction, getTransactions };

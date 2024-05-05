@@ -2,6 +2,7 @@ const { response } = require('express');
 const { SuccessResponse, ErrorResponse } = require('../utils/common');
 const { Twilio } = require('../utils/common')
 const {TransactionService}= require ('../services');
+const { StatusCodes } = require('http-status-codes')
 
 
 async function returnTheResponse(req, res) {
@@ -66,9 +67,29 @@ async function voucherPayment(req, res) {
 	}
 }
 
+async function getransactions(req, res) {
+    try {
+        const user = await TransactionService.getTransactions({
+            phoneNumber: req.body.phoneNumber
+        });
+		// console.log("Reached out of controller-", user)
+        SuccessResponse.data = user;
+        return res
+            .status(StatusCodes.OK)
+            .json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(ErrorResponse);
+    }
+}
+
 module.exports = {
 	returnTheResponse,
 	twilio,
 	addTransaction,
+	getransactions,
 	voucherPayment
 }
