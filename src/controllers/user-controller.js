@@ -36,7 +36,7 @@ async function signin(req, res) {
 		});
 		SuccessResponse.data = user;
 		return res
-			.status(StatusCodes.CREATED)
+			.status(StatusCodes.OK)
 			.json(SuccessResponse);
 	} catch (error) {
 		console.log(error);
@@ -80,7 +80,7 @@ async function getPincode(req, res) {
 	}
 }
 
-async function checkPincode(req, res) {
+async function checkPincode(req, res, next) {
 	try {
 		const response = await UserService.getPincode(req.body.phoneNumber);
 		if (response.pincode == req.body.pincode) {
@@ -89,7 +89,8 @@ async function checkPincode(req, res) {
 				"message": "Pincode verified",
 				"error": {}
 			}
-			return res.status(201).json(SuccessResponse)
+			next();
+			// return res.status(201).json(SuccessResponse)
 		}
 		else {
 			ErrorResponse.error = error;

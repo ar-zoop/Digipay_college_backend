@@ -32,4 +32,16 @@ async function addTransaction (data){
     }
 }
 
+async function getTransactions(data){
+    try {
+        console.log("in voucher-service", data);
+        const response = await transactionRepo.getUser(data);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
 module.exports = { addTransaction };

@@ -33,13 +33,16 @@ async function twilio(req,res, next) {
 
 async function addTransaction(req, res) {
 	try {
+		//console.log("in addtransction")
 		const response = await TransactionService.addTransaction({
-			merchantPhoneNumber: req.body.phoneNumber, 
-			userPhoneNumber: req.body.userPhoneNumber, 
+			merchantPhoneNumber: req.body.merchantPhoneNumber, 
+			userPhoneNumber: req.body.phoneNumber, 
 			amount: req.body.amount,
 			voucherId: req.body.voucherId
 		});
+		console.log("out of addtransction")
 		SuccessResponse.data = response;
+		console.log("returnng from addtransction")
 		return res.status(201).json(SuccessResponse);
 	} catch (error) {
 		ErrorResponse.error = error;
@@ -47,8 +50,25 @@ async function addTransaction(req, res) {
 	}
 }
 
+async function voucherPayment(req, res) {
+	try {
+		const response = await MerchantService.getMerchant({
+			merchantPhoneNumber: req.body.phoneNumber, 
+			userPhoneNumber: req.body.userPhoneNumber, 
+			amount: req.body.amount,
+			voucherId: req.body.voucherId
+		});
+		SuccessResponse.data = response;
+		return res.status(201).json(SuccessResponse)
+	} catch (error) {
+		ErrorResponse.error = error;
+		return res.status(500).json(ErrorResponse)
+	}
+}
+
 module.exports = {
 	returnTheResponse,
 	twilio,
-	addTransaction
+	addTransaction,
+	voucherPayment
 }

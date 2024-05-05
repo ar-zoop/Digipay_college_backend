@@ -35,10 +35,10 @@ class VoucherRepository extends CrudRepository {
     }
 
     async updateVoucherBalance(data) {
-        data.phoneNumber = Number(data.phoneNumber);
-        data.voucherId = Number(data.voucherId);
-        data.amount=Number(data.amount);
-        console.log(data.amount);
+        // data.phoneNumber = Number(data.phoneNumber);
+        // data.voucherId = Number(data.voucherId);
+        // data.amount=Number(data.amount);
+        // console.log(data.amount);
         let response = await voucherDetails.findOne(
             {
                 where: { 
@@ -46,9 +46,13 @@ class VoucherRepository extends CrudRepository {
                 },
             }
         );
-        console.log(response);
+        console.log(response); 
+        var newAmount = Number(response.amount)- data.amount;
+        //console.log("-----------------------------"+Number(response.amount))
+        //console.log(data.amount)
+        //console.log(newAmount)
         response = await voucherDetails.update({
-            amount: Number(response.amount)- data.amount
+            amount: newAmount
         }, {
             where: {
                 voucherId: data.voucherId
