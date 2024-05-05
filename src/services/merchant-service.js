@@ -26,6 +26,16 @@ async function createUser(data) {
     }
 }
 
+async function getMerchant(id) {
+    try {
+        const response = await merchantRepo.getUser(id);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 async function signin(data) {
     try {
         console.log("merchant service in signin")
@@ -75,4 +85,4 @@ async function isAuthenticated(token) {
 
 
 
-module.exports = { createUser, signin, isAuthenticated};
+module.exports = { createUser, getMerchant, signin, isAuthenticated};
