@@ -44,7 +44,7 @@ async function signin(data) {
         
         const user = await userRepo.getUser(BigInt(data.phoneNumber));
         if (!user) {
-            throw new AppError('No user found for the given phone number', StatusCodes.NOT_FOUND);
+            throw new AppError('No user found for the given phone number', 400);
         }
         const passwordMatch = Auth.checkPassword(data.password, user.password);
         console.log("password match", passwordMatch)
