@@ -45,6 +45,17 @@ async function signin(req, res) {
     }
 }
 
+async function getMerchant(req, res) {
+	try {
+		const response = await MerchantService.getMerchant(req.body.phoneNumber);
+		SuccessResponse.data = response;
+		return res.status(201).json(SuccessResponse)
+	} catch (error) {
+		ErrorResponse.error = error;
+		return res.status(500).json(ErrorResponse)
+	}
+}
+
 async function twilio(req, res) {
     try {
         const body = {
@@ -96,5 +107,5 @@ async function acceptPayment(req, res, next) {
 }
 
 module.exports = {
-    signup, signin, twilio, acceptPayment
+    signup, signin, getMerchant, twilio, acceptPayment
 }
