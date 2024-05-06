@@ -64,4 +64,26 @@ async function getVoucher(req, res) {
     }
 }
 
-module.exports = { createVoucher, resendVoucher, getVoucher };
+async function deductFromVoucher(req, res, next) {
+    try {
+        const user = await VoucherService.updateVoucherBalance({
+            phoneNumber: req.body.phoneNumber,            
+            amount: req.body.amount,
+            voucherId: req.body.voucherId
+        });
+        console.log("reached controller")
+        SuccessResponse.data = user;
+        // return res
+        //     .status(StatusCodes.OK)
+        //     .json(SuccessResponse);
+        next();
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(ErrorResponse);
+    }
+}
+
+module.exports = { createVoucher, resendVoucher, getVoucher, deductFromVoucher };

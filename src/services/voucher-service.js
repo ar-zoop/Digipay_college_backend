@@ -39,7 +39,8 @@ async function updateVoucher(data) {
 
 async function updateVoucherBalance(data) {
     try {
-        const response = await voucherRepo.updateVoucherBalance(data);
+        var response = await voucherRepo.updateVoucherBalance(data);
+        //console.log("reached here", response)
         return response;
     } catch (error) {
         console.log(error);
