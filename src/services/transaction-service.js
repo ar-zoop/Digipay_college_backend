@@ -32,4 +32,27 @@ async function addTransaction (data){
     }
 }
 
-module.exports = { addTransaction };
+async function getTransactions(data){
+    try {
+        console.log("in voucher-service", data);
+        const response = await transactionRepo.getTransactions(data);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+async function getMerchantTransactions(data){
+    try {
+        console.log("in merchant transactions history service-", data);
+        const response = await transactionRepo.getMerchantTransactions(data);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
+module.exports = { addTransaction, getTransactions, getMerchantTransactions };
