@@ -10,7 +10,7 @@ router.post('/signin', MerchantController.signin);
 //router.post('/addBank', IABankController.createAcquirerBank);
 router.get('/requestOTP', MerchantController.twilio);
 //router.post('/acceptPayment', MerchantController.acceptPayment, IABankController.addMoneyToAcquirerBank, TransactionController.addTransaction);
-router.get('/',verifyToken, MerchantController.getMerchant);
+router.post('/',verifyToken, MerchantController.getMerchant);
 
 
 module.exports = router;
