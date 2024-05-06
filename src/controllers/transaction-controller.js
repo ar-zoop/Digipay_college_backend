@@ -21,7 +21,22 @@ async function twilio(req,res, next) {
 		const body = {
 			to: String(req.body.phoneNumber),
 			from: '+13612667516',
-			message: `Your OTP for payment of Rs. ${req.body.amount} "to"  ${req.body.receiverPhoneNumber} "is 706001.`
+			message: `Your Transaction has been Successful.`
+		};
+		const response = Twilio.sendTextMessage(body);
+		next();
+	} catch (error) {
+		ErrorResponse.error = error;
+		return res.status(500).json(ErrorResponse);
+	}
+}
+
+async function twilioMerchant(req,res, next) {
+	try {
+		const body = {
+			to: String(req.body.merchantPhoneNumber),
+			from: '+13612667516',
+			message: `Your Transaction has been Successful.`
 		};
 		const response = Twilio.sendTextMessage(body);
 		next();
@@ -91,5 +106,6 @@ module.exports = {
 	twilio,
 	addTransaction,
 	getransactions,
-	voucherPayment
+	voucherPayment,
+	twilioMerchant
 }

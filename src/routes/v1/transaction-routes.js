@@ -8,5 +8,5 @@ const router = express.Router();
 
 router.get('/',verifyToken,TransactionController.getransactions)
 router.post('/checkPincode', UserController.checkPincode, TransactionController.twilio, WalletController.addMoneyToWalletInw2wTransfer, WalletController.deleteNotes,  TransactionController.addTransaction);
-router.post('/pay', verifyToken,  UserController.checkPincode , VoucherController.deductFromVoucher , TransactionController.addTransaction)
+router.post('/pay', verifyToken,  UserController.checkPincode , VoucherController.deductFromVoucher , TransactionController.twilio, TransactionController.twilioMerchant , TransactionController.addTransaction)
 module.exports = router;
