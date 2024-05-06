@@ -101,11 +101,31 @@ async function getransactions(req, res) {
     }
 }
 
+async function getMerchantTransactions(req, res) {
+    try {
+        const user = await TransactionService.getMerchantTransactions({
+            phoneNumber: req.body.merchantPhoneNumber
+        });
+		// console.log("Reached out of controller-", user)
+        SuccessResponse.data = user;
+        return res
+            .status(StatusCodes.OK)
+            .json(SuccessResponse);
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(ErrorResponse);
+    }
+}
+
 module.exports = {
 	returnTheResponse,
 	twilio,
 	addTransaction,
 	getransactions,
 	voucherPayment,
-	twilioMerchant
+	twilioMerchant,
+	getMerchantTransactions
 }

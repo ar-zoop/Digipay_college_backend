@@ -43,5 +43,16 @@ async function getTransactions(data){
     }
 }
 
+async function getMerchantTransactions(data){
+    try {
+        console.log("in merchant transactions history service-", data);
+        const response = await transactionRepo.getMerchantTransactions(data);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 
-module.exports = { addTransaction, getTransactions };
+
+module.exports = { addTransaction, getTransactions, getMerchantTransactions };
