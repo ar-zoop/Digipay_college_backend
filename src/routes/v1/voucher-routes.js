@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/', IABankMiddleware.reduceMoneyFromIssuerBank, VoucherController.createVoucher);
 router.patch('/', VoucherController.resendVoucher);
-router.get('/',verifyToken, VoucherController.getVoucher);
+router.post('/getVoucher',verifyToken, VoucherController.getVoucher);
 
 module.exports = router;
