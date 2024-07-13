@@ -1,4 +1,4 @@
-const client = require('twilio')('ACe4333f03bc1afbf1b5aafab11590b53f', '2e885add6f0587c6186c292e77a5ba4b');
+const client = require('twilio')('ACe4333f03bc1afbf1b5aafab11590b53f', 'twilio_auth_token');
 function sendTextMessage(body){
     console.log(body.message, body.to)
     client.messages.create({
